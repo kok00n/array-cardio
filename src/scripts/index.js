@@ -26,26 +26,53 @@ const people = ['Beck, Glenn', 'Becker, Carl', 'Beckett, Samuel', 'Beddoes, Mick
   
 // Array.prototype.filter()
 // 1. Filter the list of inventors for those who were born in the 1500's
+console.table(inventors.filter(inventor =>  Math.trunc(inventor.year / 100) == 15));
   
 // Array.prototype.map()
 // 2. Give us an array of the inventors' first and last names
+console.log(inventors.map(inventor => inventor.first + ' ' + inventor.last));
   
 // Array.prototype.sort()
 // 3. Sort the inventors by birthdate, oldest to youngest
+console.table(inventors.sort((inventorA, inventorB) => inventorA.year - inventorB.year));
+console.table(inventors.sort((inventorA, inventorB) => inventorA.year > inventorB.year ? 1 : -1)); // if a value go next result should be 1 if to the beginning of the array -1
   
 // Array.prototype.reduce()
 // 4. How many years did all the inventors live?
+console.log(inventors.reduce((total, inventor) => total + (inventor.passed - inventor.year), 0));
   
 // 5. Sort the inventors by years lived
+console.table(inventors.sort((inventorA, inventorB) => (inventorA.passed - inventorA.year) > (inventorB.passed - inventorB.year) ? -1 : 1));
   
 // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
 // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
-  
+
+//const category = document.querySelector('.mw-category');
+//const links = Array.from(category.querySelectorAll('a'));
+// const de = links
+//             .map(link => link.textContent)
+//             .filter(streetName => streetName.includes('de')); 
   
 // 7. sort Exercise
 // Sort the people alphabetically by last name
-  
+console.table(inventors.sort((inventorA, inventorB) => inventorA.last > inventorB.last ? 1 : -1));
+console.log(people.sort((guyA, guyB) => guyA.split(', ')[1] > guyB.split(', ')[1] ? 1 : -1)); // by name
+console.log(people.sort((guyA, guyB) => {
+    const [guyALast, guyAfirst] = guyA.split(', ');
+    const [guyBLast, guyBfirst] = guyB.split(', ');
+
+    return guyALast > guyBLast ? 1 : -1;
+}));
 // 8. Reduce Exercise
 // Sum up the instances of each of these
 const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
-  
+
+const transportation = data.reduce((obj, item) => {
+    if(!obj[item]){
+        obj[item] = 0;
+    }
+    obj[item]++;
+    return obj;
+}, {});
+
+console.table(transportation);
